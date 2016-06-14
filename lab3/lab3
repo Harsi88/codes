@@ -1,0 +1,401 @@
+In this lab, you will implement programs using recursion. You should try to do all 
+exercises. Exercises 0 and 3 are particularly instructive, so you may try to complete
+them today. You will also find exercise 1 interesting.
+
+Exercise 5 asks you to convert several iterative programs discussed in class to recursive ones.
+
+We will ask you to submit a subset of these exercise at a later date. Please make sure that you
+save your work before leaving the lab.
+
+EXERCISE 0
+----------
+
+PASCAL'S TRIANGLE.
+
+A pascal's triangle looks like this :
+
+		1
+	      1   1
+	    1   2   1
+	  1   3   3   1
+	1   4   6   4   1
+      1   5   10  10  5   1 
+
+The rows are numbered 1, 2, ... starting from the top. The i-th row
+has i entries. The numbers at the two ends of each row are 1, and every
+other entry is formed by summing the two elements above it in the triangle.
+
+For example, the 3rd element of 4th line is equal to 6, which is obtained
+by summing the two 3's above it.
+
+You have to write a recursive program which takes as input two integers R and C,
+where R is the row number and C is the position within the row of the desired 
+element in Pascal's triangle. The program should output the value of the element
+at position (R, C) in the triangle.
+
+Examples :
+
+INPUT
+
+1 1
+
+OUTPUT 
+
+1
+
+INPUT 
+
+4 3
+
+OUTPUT
+
+3
+
+INPUT 
+
+6 4
+
+OUTPUT
+
+10
+
+
+EXERCISE 1
+----------
+ROBOT IN A GRID
+
+A robot moves on a m*n grid, with m squares in each row and n squares in each column. For example, a
+3*3 grid looks like this :
+
+
+	----------------- (3,3)
+	|    |     |    |
+	-----------------
+	|    |     |    |
+	-----------------
+	|    |     |    |
+  (0,0)	-----------------
+
+
+The robot is initially located the bottom left corner (0,0) and has to reach the top right corner
+(3,3). At each step, either the robot can move one unit north or one unit east. (The robot cannot move to the
+west and south). You have to count the total number of ways in which the robot can reach point (m,n)
+from point (0,0) in the grid by making moves only to the north and east.
+
+For example, for the 3*3 grid above, here are two different ways in which the robot can travel :
+
+(0,0) --> (0,1) --> (1,1) ---> (1,2) ---> (2,2) ---> (2,3) ---> (3,3)
+
+and,
+
+(0,0) --> (0,1) --> (0,2) ---> (0,3) ---> (1,3) ---> (2,3) ---> (3,3)
+
+In total, there are 20 different ways in which you can reach (3,3) from (0,0) under the above
+north-east restriction.
+
+Write a recursive program which takes as input two positive integers m and n, and outputs the
+total number of ways in which a robot can reach (m,n) from (0,0) by making only northern
+and eastern moves.
+
+Examples : 
+
+INPUT 
+
+3 3
+
+OUTPUT
+
+20
+
+INPUT 
+
+4 5
+
+OUTPUT
+
+126
+
+INPUT 
+
+10 12
+
+OUTPUT
+
+646646
+
+
+EXERCISE 2
+----------
+
+MULTIPLICATION BY ADDITION AND SUBTRACTION
+
+
+You all know the high school method of multiplying two integers. This method works well, but there
+are other methods available. The next two exercises consider two such methods for multiplication. 
+
+Suppose our computer has no multiplication or division operations, but it allows us to add or subtract two numbers. We can 
+implement multiplication on such a computer as follows. 
+
+Suppose the two numbers two be multiplied are a and b. We use the identity : a*b = (a-1)*b+b. Thus,
+
+	4*13 = 3*13 + 13 = (2*13 + 13) + 13 = ((1*13 + 13) + 13) + 13
+
+Write a recursive program which uses the above identity to multiply two positive integers using just addition and
+subtraction.
+
+What is the running time of your algorithm ? In other words, given a and b, how many additions does it take to
+compute their product ?
+
+EXERCISE 3
+----------
+
+MULTIPLICATION BY MULTIPLYING AND DIVIDING BY 2 
+
+The previous method is very time consuming. Here is a much faster method. It requires that in addition to 
+'+', your computer also supports operations to divide and multiply a number by 2. 
+
+Note that multiplication and division by 2 are very easily implemented on a computer since it uses the binary 
+system. To divide by 2, we just shift the number right by 1 bit . Similarly, to multiply by 2, we shift the number 
+left by 1 bit.
+
+The main observation is that multiplying a by b is just adding a to itself b times i.e.,
+
+	a*b = (a + a + ... b times ... + a)
+	
+
+Compare this with :
+
+	a^b = (a * a * ... b times ... * a)
+
+Thus, multiplying two numbers a and b is "similar" to raising a to the b-th power, the only difference being that multiplication 
+is replaced by addition. Thus, we can adapt the doubling technique we described in class to do fast exponentian using multiplication
+to implement fast multiplication using addition.
+
+Write a recursive program using these ideas which takes as input two integers a and b and outputs their product a*b.
+Please note that the only operations allowed on numbers are addition, division by 2 and multiplication by 2.
+
+Compare the running time of your algorithm with the previous exercise.
+
+
+Examples.
+
+INPUT 
+
+4 3
+
+OUTPUT 
+
+12
+
+INPUT
+
+17 13
+
+OUTPUT
+
+221
+
+
+
+EXERCISE 4
+----------
+
+COIN CHANGING
+
+Suppose we have coins of denominations 1, 5, 10, 25, and 50. We want to make a change for n paise using these coins.
+We can use as many coins of a given denomination as we want. The problem is to find how many different ways are there
+to make a change for n paise using these coins.
+
+For example, suppose we want to make a change for 10 paise. There are four distinct ways of doing this : 10, 5+5,
+5+1+1+1+1, and 1+1+1+1+1+1+1+1+1+1. Similarly, there are 292 different ways to make change for 1 Rupee i.e., 100 paise.
+
+This problem can be solved by recursion as follows. Number the coins 1, 2, 3, ..., k. Then the number of ways to make
+change for n using all k coins is the sum of the following two quantities :
+
+1. The number of ways to make change for n using coins 1, 2, 3, ..., k-1. 
+
+PLUS,
+
+2. The number of ways to make change for n-d using coins 1, 2, 3, ..., k. Here d is the denomination for the kth coin.
+
+To see why this is true, consider making change for n paise. Either we will use the k-th coin or we will not use it.
+If we use the k-th coin, we will use it at least once. If we take one coin of type k, we will be left with n-d paise, where
+d is the denomination of the k-th coin. The problem now reduces to counting the number of ways of making a change for n-d paise using all k
+coins (here d denotes the value of the k-th coin in paise). On the other hand, if we do not use the k-th coin, we have to 
+count the number of ways of making change for n paise using just coins 1, 2, ..., k-1. Since these are the only two possibilities,
+we have to take their sum to find the total number of ways to make change.
+
+Write a recursive program which when given the number n, returns the number of ways to make change for n paise using coins
+1, 5, 10, 25, and 50.
+
+(NOTE : While implementing the program, you will need the denomination of the k-th coin, where k is an integer. You can find
+it by writing a function 
+
+	int find_denomination(int k) {
+		if (k==5)
+			return 25;
+		else if (k==4)
+			return 15;
+
+		...
+
+		else if (k==1)
+			return 1;
+	}
+
+The advantage of doing this separately in a function is that you can run the same program with different coin denominations
+(say, 1, 3, 7, 10 and 15) by just changing the body of this function appropriately.)
+
+Examples :
+
+INPUT 
+
+2
+
+OUTPUT
+
+1
+
+INPUT 
+
+10
+
+OUTPUT 
+
+4
+
+INPUT 
+
+100
+
+OUTPUT 
+
+292
+
+INPUT 
+
+250
+
+OUTPUT
+
+5126
+
+INPUT 
+
+1000
+
+OUTPUT
+
+801451
+
+
+EXERCISE 5
+----------
+
+Write a recursive program to compute tan(x) for a given angle x. Use the following two facts :
+
+a. tan(2x) = 2*tan(x)/(1-tan(x)^2)
+
+b. For x small, tan(x) is very nearly equal to x.
+
+Examples :
+
+INPUT
+1.55
+
+OUTPUT
+tan(1.550000)=48.078482479208802
+
+
+INPUT
+1
+
+OUTPUT
+tan(1.000000)=1.557407724654898
+
+
+EXERCISE 6
+----------
+WRITING ITERATIVE PROGRAMS USING RECURSION
+
+Any iterative program can be converted into a recursive program. The main idea is to pass the local variables
+in the while/for loop as arguments to the recursive function and update these variables before the next
+recursive call. (Converting recursive programs to iterative ones is trickier in general. For this, we need to use
+a data structure called stack which we will cover in future classes.)
+
+For example, consider the algorithm covered in class which uses the infinite series for sin(x)
+to calculate its value at a given angle x. Here is a recursive version of this algorithm :
+
+--------------------------------------------------------------------------------------------
+
+#include <stdio.h>
+#define ERROR 1e-10
+
+double modulus(double x) {
+
+	if(x<0) 
+		return (-1)*x;
+	else
+		return x;
+
+}
+
+double sin1(double x, double sum, double term, int i) {
+
+	if(modulus(term) < ERROR)
+		return sum;
+	else {
+		i=i+2;
+		term=(-1)*(term*x*x)/(i*(i-1));
+		sum=sum+term;
+		return sin1(x, sum, term, i);
+	}
+}
+
+double sin(double x)  {
+
+	return sin1(x, x, x, 1);
+
+}
+
+
+int main() {
+
+	double x;
+
+	printf("Enter the angle in radians\n");
+
+	scanf("%lf", &x);
+
+	printf("sin(%lf)=%.15lf\n", x, sin(x));
+
+}
+
+--------------------------------------------------------------
+
+Note that sin(x) calls another function sin1(x, sum, term, i), which then recurses on itself.
+Note that the loop variables sum, term and i are now passed as arguments to the new function.
+These arguments are suitably updated during recursion.	
+
+Write the following iterative programs covered in class as recursive functions (i.e., without using while or 
+for loop). Which loop variables are passed as arguments to the recursive function ? Compare the time and 
+space taken by the recursive version with iterative version. Which one is usually better ?
+
+1. Babylonian method for finding square roots.
+
+2. Newton's method for finding the root of f(x)=0.
+
+3. Bisection method for finding the root of f(x)=0. (We wrote an iterative version of this program
+   in lab2.)
+
+4. Write a recursive program which takes as input a positive integer n and returns the value of the sum :
+	1+2+3+...+n.
+
+
+----------------------------------------------------------------------------------------------------------
+Reference: 
+
+1. Structure and Interpretation of Computer Programs (second edition) by Harold Abelson and Gerald Jay Sussman
+with Julie Sussman (Chapter 1)
+
+

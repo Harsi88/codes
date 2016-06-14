@@ -1,0 +1,58 @@
+This lab is concerned with implementation of functions on linked lists and 
+their
+applications. Input and output examples are only given for Exercise 1. Test 
+the functions
+you write for other exercises yourself on several different input linked 
+lists.
+
+
+Exercise 0
+----------
+Reversing a linked list
+
+The reverse of a linked list L is a linked list L' in which the elements of 
+L
+appear in reverse order. For example, the reverse of the list (6 3 5 7 9) is
+(9 7 5 3 6).
+
+a) Write a RECURSIVE function which takes as input a linked list (i.e., a 
+pointer
+   to the first element of the list) and returns a pointer to the reversed 
+linked
+   list.
+
+   Thus, if the function is given as input a pointer "head" to the 
+following linked list :
+
+    head --> 9 --> 7 --> 5 --> 3 --> 6 --> NULL
+
+   , it will return a pointer p which points to the reverse of this list 
+i.e., :
+
+    p --> 6 --> 3 ---> 5 --> 7 --> 9 --> NULL
+
+   Try doing this without allocating any new nodes using malloc() and 
+instead using only
+   the nodes that all already present in the linked list.
+
+   The function prototype will be :
+
+    struct node *reverse_recursive(struct node *head) {
+        
+        /* your code */
+
+    }
+
+b) Write an ITERATIVE function for reversing a linked list. Note that you 
+are allowed to make only
+   one pass through the linked list. (Note: This will require a moderate 
+amount of thinking).
+
+   The function prototype will be :
+
+        struct node *reverse_iterative(struct node *head) {
+    
+        /* your code */
+
+    }
+

@@ -1,0 +1,262 @@
+There are 5 exercises in this assignment. Exercises 0 and 1, just ask you to code
+the programs taught in the class. Exercises 2, 3, 4 ask you to write new programs.
+
+Exercises 0 and 1 are not for submission. I will suggest that you finish the code
+for exercises 2 and 4 today. 
+
+One more thing. Make sure to save your work in a place where you have a permanent account, 
+so that it may not be lost when you come again to the lab.
+
+EXERCISE 0
+----------
+
+Write a program which takes an integer as input and uses the Babylonian method to
+compute its square root. Your program should check for the case when the input
+integer is negative. 
+
+EXERCISE 1
+----------
+
+Write a program which implements the Newton's method for finding the root of an
+equation f(x)=0.
+
+The user will give the method to evaluate f at x in the function :
+
+	double f(double x) {
+		.......
+	}
+
+Similarly, the method to evaluate the first derivative f'(x) will be coded
+in the function :
+
+	double f_prime(double x) {
+		.......
+	}
+
+
+The function implementing Newton's method will call these functions with input
+x_n, to calculate x_(n+1) :
+
+	x_(n+1) =  x_n - f(x_n)/f_prime(x_n)
+
+The program will run until the difference between two consecutive values is less
+than 1e-15. Also, the function implementing Newton's method should give an error 
+"Failed to converge" if the number of iterations exceeds 1000.
+
+After writing the program, test it by changing the body of f(x) and f_prime(x)
+as indicated in 1-7 below. Note that Newton's method may not always converge.
+Therefore, it is a good idea to print the values of successive iterates to visualize
+its behavior. Try to find the pattern in the behavior of successive iterates. For example,
+Do they converge ? How fast do they converge ? If not, do they form a cycle ? Or, or they go to 
+inifinity ? etc. You may stop the program if it doesn't converge after a certain number
+(say, 5000) of iterations. Look at the article on Newton's Method on Wikipedia for the behavior of 
+Newton's method on several interesting examples:
+
+http://en.wikipedia.org/wiki/Newton's_method
+
+To call the functions sin(x) and cos(x), add the line "#include <math.h>"
+at the top of your program. While compiling, compile using 
+"gcc -lm <filename>". To know more about functions available in "math.h", go to
+this link :
+
+http://www.cplusplus.com/reference/clibrary/cmath/
+
+If you would prefer otherwise, you can write your own sine and cosine functions
+as will be described in class. 
+
+(REMARK : To get an idea about where the roots are located, you can draw the function
+ using the website : http://rechneronline.de/function-graphs/)
+
+Consult the article on Newton's method on Wikipedia (http://en.wikipedia.org/wiki/Newton's_method)
+for the behavior of Newton's method on some of these examples. 
+
+Questions :
+
+---------
+1. Calculate the value of PI using Newton's method. 
+   (Hint : Use the fact that PI is a root of the equation : sin(x)=0)
+
+   You may need to give 3 as a starting value.
+
+2. Calculate the real root of equation :
+
+	x^3 - cos(x) = 0
+
+   Give starting value 1.
+
+3. SQUARE ROOTS AND CUBE ROOTS. Calculate the root of equation :
+
+	x^2 - a = 0
+
+   Use different values of a. For example, a=216, 34, 2, 57 etc.
+   
+   Show that in this case Newton's method reduces to the Babylonian method
+   for finding square roots.
+
+   Use Newton's method to calculate the cube root of a given number a.
+   Note that f(x)=x*x*x-a in this case. What is f'(x) and what is the recursive
+   update formula for cube roots ? Try different values of a such as 317, 25, 19, 27 etc.
+
+4. Calculate at least one real root of equation :
+
+	sin(x)^2 - cos(x)^3 = 0
+
+   Based on different starting values you will converge to different
+   roots. This is because sine and cosine functions are periodic with
+   period 2*pi.
+
+5. Calculate the real root of the cubic equation :
+	
+	x^3 + 2x + 1
+
+6. Try to find a real root of the quadratic equation :
+
+	x^2 + x + 1
+
+   Why doesn't your method converge ? Try different values for the initial estimate.
+   What is the behavior of successive iterates for initial value 1 ?
+
+7. Find the real root of the quintic equation :
+
+	x^5 + x + 1
+
+8. Find the single real root of the quintic equation :
+
+	x^5 - x + 1
+
+   Dooes the method converge ? If not, do the values of subsequent iterates contain a loop ?
+
+9. How can you find the points of minima and maxima of a function using Newton's method ?
+   (Hint : The maximum or minimum of a continuous, differentiable is achieved where the derivative f'(x) is 0.
+    Apply Newton's method to f'(x).)
+
+
+Check the answers found by your program using a calculator.
+
+EXERCISE 2
+-----------
+
+Write a C program that takes as input the three coefficients a, b, c of a quadratic
+equation a*x^2 + b*x + c = 0 and outputs the roots of the equation.
+
+Your program must distinguish between the three cases : 
+
+(i) There is exactly one real root. Ex. x^2-2x+1 = (x-1)^2
+(ii) There are two distinct real roots. Ex. x^2-5x+6 = (x-2)(x-3).
+(iii) There are two conjugate complex roots. Ex. x^2+x+1.
+      Print a complex root (a,b) as a+bi.
+
+--------------------------------------------------------------------------------------
+For example, here is what your program should do for different inputs :
+
+INPUT
+
+1 -2 1
+
+OUTPUT
+
+There is a single real root with value: 1.000000
+
+
+INPUT
+
+1 -5 6
+
+OUTPUT
+
+The two real roots of the equation are: 3.000000, 2.000000
+
+INPUT
+
+1 1 1
+
+OUTPUT
+
+The two imaginary roots of the equation are: -0.500000 + 0.866025 i, -0.500000 - 0.866025 i
+
+-----------------------------------------------------------------------------------------
+(HINT : Use the square root function implemented in exercise 0. You can also use the code for exercise 1 (Newton's method)).
+
+EXERCISE 3
+----------
+
+You all have studied the equations of projectile motion in physics. In this exercise, we will write a 
+program to compute some basic quantities associated with projectile motion. Denote the surface of
+earth by the X-axis. Suppose a projectile is thrown from height h (i.e., from the point (0,h)) with
+velocity v at an angle z to the x-axis.
+
+You have to calculate the following three quantities:
+
+1. The maximum height H achieved by the projectile before it hits the ground.
+2. The distance D traveled by the projectile in the x-direction before it hits the ground.
+3. The speed V of the projectile when it hits the ground.
+
+Your program will take three inputs: (i) height h, (ii) velocity v, and (iii) angle z. It will
+compute the above three quantities H, D, and V and output them on a single line.
+
+You can use the header file <math.h> to compute sines and cosines, but not the square root. We will
+discuss how to write a program to compute sin(x) in the next class.
+
+EXERCISE 4
+----------
+Newton's method is not the only method to find roots of a function f(x). One other interesting method
+is the BISECTION METHOD. 
+
+In this method, you are given a function f(x) and an interval (a,b) on the real line. The interval
+is such that f(a) and f(b) have opposite signs. Since the function is continuous, it must cross the
+x-axis between points a and b, and hence there is a root of the function in the interval.
+
+The method of bisection reduces the size of the interval (and hence the uncertainty in the root) by half 
+at each step. 
+
+Let us assume that f(a) is positive and f(b) is negative, the other case being similar.
+
+The method proceeds as follows, first the method computes the middle point m=(a+b)/2 of the interval.
+Then it finds the sign of f(m). There are three cases :
+
+1. f(m)=0. In this case, we have found a root m of the equation.
+2. f(m) > 0. In this case, the root lies in the interval (m,b), since f(m)>0, and f(b)<0 as assumed.
+3. f(m) < 0. In this case, the root lies in the interval (a,m), since f(a)>0 and f(m)<0.
+
+The size of the new interval is half the original interval.
+
+Write a program to compute the root of the equation f(x)=0 using the bisection method. The value of function f at
+a point x, can be found by calling the function :
+
+	double f(double x) {
+		.....
+	} 
+
+, as in our implementation of Newton's method. (Note that the bisection method does not require the value of the
+derivative).
+
+The input to the program are two numbers a and b, which denote the left and right endpoints of the initial interval.
+The output of the program should be an interval containing the root with length at most 1e-10.
+
+Example 1 :
+
+f(x)=x^2-2 (finding the square root of 2)
+
+INPUT
+
+1 2
+
+OUTPUT
+
+The root lies in the interval (1.414213562326040, 1.414213562384248)
+
+Example 2 :
+
+f(x)=x^3-3 (finding the cube root of 3)
+
+INPUT 
+
+1 2
+
+OUTPUT
+
+The root lies in the interval (1.442249570274726, 1.442249570332933)
+
+
+
+
